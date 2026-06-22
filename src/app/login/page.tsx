@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
 import { translations, Lang } from '@/lib/i18n'
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('from') || '/'
@@ -35,7 +35,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="hover:opacity-70 transition-opacity">
@@ -51,7 +50,6 @@ export default function LoginPage() {
         </div>
       </header>
 
-      {/* Form */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm">
           <h2 className="text-2xl font-bold text-gray-900 mb-1">
@@ -107,9 +105,7 @@ export default function LoginPage() {
               disabled={loading || !email || !password}
               className="w-full bg-blue-600 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading
-                ? (lang === 'zh' ? '登录中…' : 'Logging in…')
-                : t.login}
+              {loading ? (lang === 'zh' ? '登录中…' : 'Logging in…') : t.login}
             </button>
           </div>
 
@@ -121,5 +117,13 @@ export default function LoginPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }

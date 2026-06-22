@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
 import { translations, Lang } from '@/lib/i18n'
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectTo = searchParams.get('from') || '/'
@@ -23,25 +23,18 @@ export default function RegisterPage() {
 
   async function handleRegister() {
     setError(null)
-
     if (password.length < 6) {
       setError(lang === 'zh' ? '密码至少需要 6 位。' : 'Password must be at least 6 characters.')
       return
     }
-
     setLoading(true)
     const supabase = createClient()
-
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: { display_name: displayName || email.split('@')[0] },
-      },
+      options: { data: { display_name: displayName || email.split('@')[0] } },
     })
-
     setLoading(false)
-
     if (signUpError) {
       if (signUpError.message.includes('already registered')) {
         setError(lang === 'zh' ? '该邮箱已注册，请直接登录。' : 'Email already registered. Please log in.')
@@ -50,13 +43,10 @@ export default function RegisterPage() {
       }
       return
     }
-
-    // Confirm email is OFF in Supabase → user is logged in immediately
     if (data.session) {
       router.push(redirectTo)
       router.refresh()
     } else {
-      // Confirm email is ON → show success message
       setDone(true)
     }
   }
@@ -66,9 +56,7 @@ export default function RegisterPage() {
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <header className="bg-white border-b border-gray-200">
           <div className="max-w-5xl mx-auto px-4 py-3">
-            <Link href="/">
-              <h1 className="text-lg font-semibold text-gray-900">{t.appName}</h1>
-            </Link>
+            <Link href="/"><h1 className="text-lg font-semibold text-gray-900">{t.appName}</h1></Link>
           </div>
         </header>
         <main className="flex-1 flex items-center justify-center px-4">
@@ -93,7 +81,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="hover:opacity-70 transition-opacity">
@@ -109,7 +96,6 @@ export default function RegisterPage() {
         </div>
       </header>
 
-      {/* Form */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm">
           <h2 className="text-2xl font-bold text-gray-900 mb-1">
@@ -138,7 +124,6 @@ export default function RegisterPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {lang === 'zh' ? '邮箱' : 'Email'}
@@ -151,7 +136,6 @@ export default function RegisterPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 {lang === 'zh' ? '密码' : 'Password'}
@@ -177,9 +161,7 @@ export default function RegisterPage() {
               disabled={loading || !email || !password}
               className="w-full bg-blue-600 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading
-                ? (lang === 'zh' ? '注册中…' : 'Creating account…')
-                : t.register}
+              {loading ? (lang === 'zh' ? '注册中…' : 'Creating account…') : t.register}
             </button>
           </div>
 
@@ -191,5 +173,13 @@ export default function RegisterPage() {
         </div>
       </main>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <RegisterForm />
+    </Suspense>
   )
 }
