@@ -73,13 +73,13 @@ function ConfirmDialog({
 
 // ── Slides data ───────────────────────────────────────────────────────────────
 const SLIDES = [
-  { zh: '/slides/German_Preposition_Spatial_Logic_001.png', en: '/slides/German_Preposition_Spatial_Logic_002.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_003.png', en: '/slides/German_Preposition_Spatial_Logic_004.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_005.png', en: '/slides/German_Preposition_Spatial_Logic_006.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_007.png', en: '/slides/German_Preposition_Spatial_Logic_008.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_009.png', en: '/slides/German_Preposition_Spatial_Logic_010.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_011.png', en: '/slides/German_Preposition_Spatial_Logic_012.png' },
-  { zh: '/slides/German_Preposition_Spatial_Logic_013.png', en: '/slides/German_Preposition_Spatial_Logic_014.png' },
+  { zh: 'https://i.ibb.co/q3qmxcRP/German-Preposition-Spatial-Logic-001.png', en: 'https://i.ibb.co/FkVV7WMZ/German-Preposition-Spatial-Logic-002.png' },
+  { zh: 'https://i.ibb.co/23Gy19GZ/German-Preposition-Spatial-Logic-003.png', en: 'https://i.ibb.co/gZRTq54Y/German-Preposition-Spatial-Logic-004.png' },
+  { zh: 'https://i.ibb.co/P0X5mHC/German-Preposition-Spatial-Logic-005.png', en: 'https://i.ibb.co/jkq5gYSW/German-Preposition-Spatial-Logic-006.png' },
+  { zh: 'https://i.ibb.co/84jytfk9/German-Preposition-Spatial-Logic-007.png', en: 'https://i.ibb.co/RT9tfhNs/German-Preposition-Spatial-Logic-008.png' },
+  { zh: 'https://i.ibb.co/GfvRTcmt/German-Preposition-Spatial-Logic-009.png', en: 'https://i.ibb.co/Myv56wVm/German-Preposition-Spatial-Logic-010.png' },
+  { zh: 'https://i.ibb.co/GfYpsJMx/German-Preposition-Spatial-Logic-011.png', en: 'https://i.ibb.co/PGxMgXyp/German-Preposition-Spatial-Logic-012.png' },
+  { zh: 'https://i.ibb.co/XBmbgh8/German-Preposition-Spatial-Logic-013.png', en: 'https://i.ibb.co/fYxZgP7Y/German-Preposition-Spatial-Logic-014.png' },
 ]
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────
