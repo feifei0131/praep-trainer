@@ -81,9 +81,17 @@ function LoginForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {lang === 'zh' ? '密码' : 'Password'}
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-sm font-medium text-gray-700">
+                  {lang === 'zh' ? '密码' : 'Password'}
+                </label>
+                <Link
+                  href="/forgot-password"
+                  className="text-xs text-blue-600 hover:underline"
+                >
+                  {lang === 'zh' ? '忘记密码？' : 'Forgot password?'}
+                </Link>
+              </div>
               <input
                 type="password"
                 value={password}
